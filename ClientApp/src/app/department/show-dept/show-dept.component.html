@@ -1,0 +1,66 @@
+<!-- Button trigger modal -->
+<div class="d-flex justify-content-end">
+  <button type="button" class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#exampleModal"
+    (click)="addClick()" data-backdrop="static" data-keyboard="false">
+    Add Department
+  </button>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ModatTitle}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeClick()">
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-add-edit-dept *ngIf="ActivateAddEditDepComp" [dep]="dep">
+        </app-add-edit-dept>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <td>
+        <div class="d-flex flex-row">
+          <input [(ngModel)]="DepartmentIdFilter" class="form-control"
+          (keyup)="filterList()" placeholder="filter">
+
+          <button type="button" (click)="sortResult('DepartmentId','true')">^</button>
+          <button type="button" (click)="sortResult('DepartmentId','false')">&</button>
+        </div>
+        Department Id</td>
+      <td>
+        <div class="d-flex flex-row">
+          <input [(ngModel)]="DepartmentNameFilter" class="form-control"
+          (keyup)="filterList()" placeholder="filter">
+
+          <button type="button" (click)="sortResult('DepartmentName','true')">^</button>
+          <button type="button" (click)="sortResult('DepartmentName','false')">&</button>
+          </div>
+        Department Name</td>
+      <td>Action</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let dtitem of DepartmentList">
+      <td>{{dtitem.DepartmentId}}</td>
+      <td>{{dtitem.DepartmentName}}</td>
+      <td>
+        <button type="buttton" class="btn btn-light mr-1" data-bs-toggle="modal" data-bs-target="#exampleModal"
+          (click)="editClick(dtitem)" data-backdrop="static" data-keyboard="false">
+          Edit
+        </button>
+        <button type="button" class="btn btn-light mr-1" (click)="deleteDept(dtitem)">
+          Delete
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
